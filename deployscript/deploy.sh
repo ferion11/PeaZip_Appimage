@@ -60,6 +60,6 @@ cp resource/* $WORKDIR
 
 ./appimagetool.AppImage --appimage-extract
 
-export ARCH=x86_64; squashfs-root/AppRun -v $WORKDIR -u 'gh-releases-zsync|ferion11|$P_NAME_Appimage|continuous|$P_NAME-$P_VERSION-*arch*.AppImage.zsync' $P_NAME-$P_VERSION-${ARCH}.AppImage
+export ARCH=x86_64; squashfs-root/AppRun -v $WORKDIR -u 'gh-releases-zsync|ferion11|$P_NAME_Appimage|continuous|$P_NAME-v${P_VERSION}-*arch*.AppImage.zsync' $P_NAME-v${P_VERSION}-${ARCH}.AppImage
 
 echo "All files at the end of script: $(ls)"
