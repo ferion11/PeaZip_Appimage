@@ -2,7 +2,7 @@
 HERE="$(dirname "$(readlink -f "${0}")")"
 #------------------------------
 #------------------------------
-MAIN="$HERE/peazip_portable-7.1.0.LINUX.x86_64.GTK2/peazip"
+MAIN="$HERE/peazip_portable-7.1.1.LINUX.x86_64.GTK2/peazip"
 
-export PATH="$HERE/peazip_portable-7.1.0.LINUX.x86_64.GTK2":$PATH
+export PATH="$HERE/peazip_portable-7.1.1.LINUX.x86_64.GTK2":$PATH
 "$MAIN" "$@" | cat
