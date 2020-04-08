@@ -1,5 +1,5 @@
 #!/bin/bash
-P_URL="https://github.com/giorgiotani/PeaZip/releases/download/7.1.1/peazip_portable-7.1.1.LINUX.x86_64.GTK2.tar.gz"
+P_URL="https://github.com/giorgiotani/PeaZip/releases/download/7.2.0/peazip_portable-7.2.0.LINUX.x86_64.GTK2.tar.gz"
 P_NAME=$(echo $P_URL | cut -d/ -f5)
 P_VERSION=$(echo $P_URL | cut -d/ -f8)
 P_FILENAME=$(echo $P_URL | cut -d/ -f9)
@@ -53,6 +53,16 @@ cd ..
 #wget -nv -c "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage" -O  appimagetool.AppImage
 chmod +x appimagetool.AppImage
 
+cat > "AppRun" << EOF
+#!/bin/bash
+HERE="\$(dirname "\$(readlink -f "\${0}")")"
+#------------------------------
+
+MAIN="\$HERE/peazip_portable-${P_VERSION}.LINUX.x86_64.GTK2/peazip"
+
+export PATH="\$HERE/peazip_portable-${P_VERSION}.LINUX.x86_64.GTK2":\$PATH
+"\$MAIN" "\$@" | cat
+EOF
 chmod +x AppRun
 
 cp AppRun $WORKDIR
