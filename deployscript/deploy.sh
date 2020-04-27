@@ -1,5 +1,5 @@
 #!/bin/bash
-P_URL="https://github.com/giorgiotani/PeaZip/releases/download/7.2.0/peazip_portable-7.2.0.LINUX.x86_64.GTK2.tar.gz"
+P_URL="https://github.com/giorgiotani/PeaZip/releases/download/7.2.1/peazip_portable-7.2.1.LINUX.x86_64.GTK2.tar.gz"
 P_NAME=$(echo $P_URL | cut -d/ -f5)
 P_VERSION=$(echo $P_URL | cut -d/ -f8)
 P_FILENAME=$(echo $P_URL | cut -d/ -f9)
