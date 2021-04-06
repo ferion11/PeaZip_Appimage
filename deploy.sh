@@ -1,5 +1,5 @@
 #!/bin/bash
-MY_VERSION="7.7.0"
+MY_VERSION="7.2.2"
 P_URL="https://github.com/giorgiotani/PeaZip/releases/download/${MY_VERSION}/peazip_portable-${MY_VERSION}.LINUX.x86_64.GTK2.tar.gz"
 P_NAME=$(echo $P_URL | cut -d/ -f5)
 P_VERSION=$(echo $P_URL | cut -d/ -f8)
@@ -14,9 +14,9 @@ die() { echo >&2 "$*"; exit 1; };
 
 #-----------------------------
 #dpkg --add-architecture i386
-apt update
+sudo apt update
 #apt install -y aptitude wget file bzip2 gcc-multilib
-apt install -y aptitude wget file bzip2
+sudo apt install -y aptitude wget file bzip2
 #===========================================================================================
 # Get inex
 # using the package
@@ -30,7 +30,8 @@ cd "$WORKDIR" || die "ERROR: Directory don't exist: $WORKDIR"
 pkgcachedir='/tmp/.pkgdeploycache'
 mkdir -p $pkgcachedir
 
-#aptitude -y -d -o dir::cache::archives="$pkgcachedir" install pycharm-community
+#sudo aptitude -y -d -o dir::cache::archives="$pkgcachedir" install pycharm-community
+#sudo chmod 777 $pkgcachedir -R
 
 #extras
 #wget -nv -c http://ftp.osuosl.org/pub/ubuntu/pool/main/libf/libffi/libffi6_3.2.1-4_amd64.deb -P $pkgcachedir
@@ -51,7 +52,7 @@ mkdir -p $pkgcachedir
 # appimage
 cd ..
 
-#wget -nv -c "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage" -O  appimagetool.AppImage
+wget -nv -c "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage" -O  appimagetool.AppImage
 chmod +x appimagetool.AppImage
 
 cat > "AppRun" << EOF
@@ -72,5 +73,7 @@ cp resource/* $WORKDIR
 ./appimagetool.AppImage --appimage-extract
 
 export ARCH=x86_64; squashfs-root/AppRun -v $WORKDIR -u 'gh-releases-zsync|ferion11|$P_NAME_Appimage|continuous|$P_NAME-v${P_VERSION}-*arch*.AppImage.zsync' $P_NAME-v${P_VERSION}-${ARCH}.AppImage
+
+rm -rf appimagetool.AppImage
 
 echo "All files at the end of script: $(ls)"

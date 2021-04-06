@@ -1,0 +1,45 @@
+name: appimage-continuous
+
+on:
+  push:
+    branches:
+      - 'master'
+  pull_request:
+    branches:
+      - 'master'
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+
+    steps:
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@v2
+
+    - name: Run deploy.sh
+      shell: bash
+      run: bash ./deploy.sh
+
+    - name: Run md5sum
+      shell: bash
+      run: |
+        mkdir result
+        mv ./*AppImage* ./result/
+        wget -c https://github.com/ferion11/libsutil/releases/download/md5sum_util_v0.1/md5sum_util.sh
+        bash md5sum_util.sh result
+
+    - name: set BRANCH_NAME
+      run: echo "BRANCH_NAME=${GITHUB_REF##*/}" >> $GITHUB_ENV
+
+    - name: Echo BRANCH_NAME
+      run: echo ${BRANCH_NAME}
+
+    - name: Continuous build
+      uses: marvinpinto/action-automatic-releases@latest
+      with:
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        title: Continuous build (${{ env.BRANCH_NAME }})
+        automatic_release_tag: "continuous-${{ env.BRANCH_NAME }}"
+        prerelease: true
+        draft: false
+        files: ./result/*
