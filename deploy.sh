@@ -1,5 +1,5 @@
 #!/bin/bash
-MY_VERSION="7.2.2"
+MY_VERSION="7.8.0"
 P_URL="https://github.com/giorgiotani/PeaZip/releases/download/${MY_VERSION}/peazip_portable-${MY_VERSION}.LINUX.x86_64.GTK2.tar.gz"
 P_NAME=$(echo $P_URL | cut -d/ -f5)
 P_VERSION=$(echo $P_URL | cut -d/ -f8)
