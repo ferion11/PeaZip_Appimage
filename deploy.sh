@@ -1,6 +1,6 @@
 #!/bin/bash
 MY_VERSION="8.9.0"
-P_URL="https://github.com/giorgiotani/PeaZip/releases/download/${MY_VERSION}/peazip_portable-${MY_VERSION}.LINUX.x86_64.GTK2.tar.gz"
+P_URL="https://github.com/peazip/PeaZip/releases/download/${MY_VERSION}/peazip_portable-${MY_VERSION}.LINUX.GTK2.x86_64.tar.gz"
 P_NAME=$(echo $P_URL | cut -d/ -f5)
 P_VERSION=$(echo $P_URL | cut -d/ -f8)
 P_FILENAME=$(echo $P_URL | cut -d/ -f9)
@@ -60,9 +60,10 @@ cat > "AppRun" << EOF
 HERE="\$(dirname "\$(readlink -f "\${0}")")"
 #------------------------------
 
-MAIN="\$HERE/peazip_portable-${P_VERSION}.LINUX.x86_64.GTK2/peazip"
+MAIN="\$HERE/peazip_portable-${P_VERSION}.LINUX.GTK2.x86_64/peazip"
 
 export PATH="\$HERE/peazip_portable-${P_VERSION}.LINUX.x86_64.GTK2":\$PATH
+export PATH="\$HERE/peazip_portable-${P_VERSION}.LINUX.GTK2.x86_64":\$PATH
 "\$MAIN" "\$@" | cat
 EOF
 chmod +x AppRun
