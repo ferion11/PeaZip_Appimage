@@ -27,8 +27,12 @@ tar xf $P_FILENAME -C "$WORKDIR/"
 
 cd "$WORKDIR" || die "ERROR: Directory don't exist: $WORKDIR"
 
+#remove portable file
+rm "peazip_portable-${P_VERSION}.LINUX.GTK2.x86_64/res/portable" || or die "ERROR: Can't remove portable file."
+
 pkgcachedir='/tmp/.pkgdeploycache'
 mkdir -p $pkgcachedir
+
 
 #sudo aptitude -y -d -o dir::cache::archives="$pkgcachedir" install pycharm-community
 #sudo chmod 777 $pkgcachedir -R
